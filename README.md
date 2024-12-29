@@ -1,1 +1,3 @@
-# genuary-25
+# **[GENUARY](https://genuary.art)**
+
+# **Day 1**
