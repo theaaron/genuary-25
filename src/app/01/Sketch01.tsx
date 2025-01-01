@@ -9,18 +9,31 @@ export default function Sketch01() {
   useEffect(() => {
     if (typeof window === 'undefined') return
     const sketch = (p: p5) => {
+
       p.setup = () => {
-        
         const canvas = p.createCanvas(600, 400)
         canvas.parent(containerRef.current!)
       }
 
       p.draw = () => {
-        p.background(105);
+        p.background(0);
         p.fill(255);
-        p.textAlign('center');
-        p.text("Hello", p.width/2, p.height/2);
+        drawLines();
       }
+
+      const drawLines = () => {
+        p.stroke(155);
+        for (let i = 0; i < p.width; i += 10) {
+          p.line(i, p.height, i, -p.height);
+        }
+      }
+
+
+
+
+
+
+
     }
 
     const p5Instance = new p5(sketch)

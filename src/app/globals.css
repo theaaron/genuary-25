@@ -26,9 +26,27 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 100px;
+  padding: 80px;
   font-family: "Source Code Pro", serif;
   font-weight: 800;
   font-size: 50px;
+  flex-direction: column;
+}
 
+.date-title {
+  font-family: "Source Code Pro", serif;
+  font-weight: 800;
+  font-size: 35px;
+}
+
+.grid-item {
+  border: 1px solid white;
+  border-radius: 15px;
+
+}
+
+canvas {
+  margin: 0 auto 50px;
+  border: 2px solid white;
+  border-radius: 15px;
 }
