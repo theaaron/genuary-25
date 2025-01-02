@@ -27,7 +27,7 @@ export default function Sketch02() {
         let startCol = p.color(150 + (p.sin(p.frameCount/10)*30), 30 + (p.cos(p.frameCount/10)*30), 200 + (p.cos(p.frameCount/10)*30));
         let endCol = p.color(30 + (p.sin(p.frameCount/10)*30), 15 + (p.sin(p.frameCount/10)*30), 90 + (p.sin(p.frameCount/10)*30));
 
-        p.stroke(p.color(p.sin(p.frameCount/10)*180, p.sin(p.frameCount/10)*120, p.sin(p.frameCount/10)*255));
+        p.stroke(p.color(p.sin(p.frameCount/10)*255, p.cos(p.frameCount/11)*255, p.cos(p.frameCount/9)*255));
         repeatShapes(startCol, endCol);
         p.pop();
 
