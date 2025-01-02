@@ -9,26 +9,142 @@ export default function Sketch01() {
   useEffect(() => {
     if (typeof window === 'undefined') return
     const sketch = (p: p5) => {
+      let rad = 100;
+      let centerX: number;
+      let centerY: number;
+      let lineHeight = 25;
+      let numOfLines = 100;
+      let randomTransX: number[] = [];
+      let randomTransY: number[] = [];
+      let colors: p5.Color[] = [];
+      let ballX = 0;
+      let ballY = 0;
 
       p.setup = () => {
         const canvas = p.createCanvas(600, 400)
         canvas.parent(containerRef.current!)
+        centerX = p.width/2;
+        centerY = p.height/2;
+        for (let i = 0; i < 15; i++) {
+          randomTransX[i] = p.random(-p.width, p.width);
+          randomTransY[i] = p.random(-p.height, p.height);
+          colors[i] = p.color(p.random(255), p.random(255), p.random(255), p.random(255));
+        }
+
       }
 
       p.draw = () => {
         p.background(0);
         p.fill(255);
         drawLines();
+        for (let i = 0; i < 15; i++) {
+          drawDiagLines(randomTransX[i], randomTransY[i], colors[i])
+          drawNegDiagLines(randomTransX[i], randomTransY[i], colors[i]);
+        }
+        const noiseScale = 0.005;
+        const moveAmount = 5;
+        
+        ballX = p.noise(p.frameCount * noiseScale) * p.width/4;
+        ballY = p.noise((p.frameCount + 1000) * noiseScale) * p.height/4;
+        
+        p.push();
+        p.translate(ballX, ballY);
+        drawCircle(p.color(186, 225, 255, 255), true);
+        p.constrain(ballX, 0+rad, p.width-rad);
+        p.constrain(ballY, 0+rad, p.height-rad);
+
       }
 
       const drawLines = () => {
-        p.stroke(155);
+        const noiseScale = 0.1;
+        const noiseAmount = 200;
+        p.stroke(60, 255);
         for (let i = 0; i < p.width; i += 10) {
-          p.line(i, p.height, i, -p.height);
+          p.line(i, 0, i, p.height);
         }
       }
 
+      const drawDiagLines = (tx: number, ty: number, col: p5.Color) => {
+        let lnHt = p.height/4;
+        const noiseScale = 0.01;
+        const noiseAmount = 20;
+        p.push();
+        p.translate(tx, ty);
+        
+        for (let i = 0; i < p.width/1.5; i+=p.width/60) {
+            p.stroke(col);
+            p.strokeWeight(5);
+            
+            // Create noise for both start and end points
+            let startNoiseX = p.noise(i * noiseScale, p.frameCount * noiseScale) * noiseAmount;
+            let startNoiseY = p.noise(i * noiseScale, (p.frameCount + 1000) * noiseScale) * noiseAmount;
+            let endNoiseX = p.noise((i + 1000) * noiseScale, p.frameCount * noiseScale) * noiseAmount;
+            let endNoiseY = p.noise((i + 2000) * noiseScale, (p.frameCount + 1000) * noiseScale) * noiseAmount;
+            
+            // Draw line with noise-affected coordinates
+            p.line(
+                i + startNoiseX, 
+                i + startNoiseY, 
+                i + endNoiseX, 
+                i + lnHt + endNoiseY
+            );
+        }
+        p.pop();
+    }
 
+    const drawNegDiagLines = (tx: number, ty: number, col: p5.Color) => {
+      let lnHt = p.height/4;
+      const noiseScale = 0.01;
+      const noiseAmount = 20;
+      p.push();
+      p.translate(tx, ty);
+      
+      for (let i = p.width; i > 0; i-=p.width/60) {
+          p.stroke(col);
+          p.strokeWeight(5);
+          
+          let startNoiseX = p.noise(i * noiseScale, p.frameCount * noiseScale) * noiseAmount;
+          let startNoiseY = p.noise(i * noiseScale, (p.frameCount + 1000) * noiseScale) * noiseAmount;
+          let endNoiseX = p.noise((i + 1000) * noiseScale, p.frameCount * noiseScale) * noiseAmount;
+          let endNoiseY = p.noise((i + 2000) * noiseScale, (p.frameCount + 1000) * noiseScale) * noiseAmount;
+          
+
+          p.line(
+              i + startNoiseX, 
+              -i + startNoiseY, 
+              i + endNoiseX, 
+              -i + lnHt + endNoiseY
+          );
+      }
+      p.pop();
+  }
+
+      const drawCircle = (col: p5.Color, isNoisy: boolean) => {
+        let x = 0;
+        let y = 0
+        p.stroke(col);
+        p.strokeWeight(1);
+        const noiseScale = 0.02;
+        const noiseAmount = 20
+        for (let i = 0; i < numOfLines; i++) {
+          const angle = (p.TWO_PI/numOfLines) * i;
+          const x = centerX + rad * p.cos(angle);
+          const y = centerY + rad * p.sin(angle);
+          // p.point(x, y);
+          let noiseX = 0.0;
+          let noiseY = 0.0;
+          p.noiseSeed(p.random());
+          if (isNoisy) {
+            noiseX = p.noise(p.cos(angle) + p.frameCount * noiseScale) * noiseAmount;
+            noiseY = p.noise(p.sin(angle) + p.frameCount * noiseScale + 1000) * noiseAmount;
+          }
+
+          p.push();
+          p.line(x + noiseX, y + noiseY + lineHeight, x + noiseX, y + noiseY - lineHeight)
+          p.pop()
+        }
+      }
+      
 
 
 
