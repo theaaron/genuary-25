@@ -9,14 +9,14 @@ export default function Sketch01() {
   useEffect(() => {
     if (typeof window === 'undefined') return
     const sketch = (p: p5) => {
-      let rad = 100;
+      const rad = 100;
       let centerX: number;
       let centerY: number;
-      let lineHeight = 25;
-      let numOfLines = 100;
-      let randomTransX: number[] = [];
-      let randomTransY: number[] = [];
-      let colors: p5.Color[] = [];
+      const lineHeight = 25;
+      const numOfLines = 100;
+      const randomTransX: number[] = [];
+      const randomTransY: number[] = [];
+      const colors: p5.Color[] = [];
       let ballX = 0;
       let ballY = 0;
 
@@ -42,7 +42,6 @@ export default function Sketch01() {
           drawNegDiagLines(randomTransX[i], randomTransY[i], colors[i]);
         }
         const noiseScale = 0.005;
-        const moveAmount = 5;
         
         ballX = p.noise(p.frameCount * noiseScale) * p.width/4;
         ballY = p.noise((p.frameCount + 1000) * noiseScale) * p.height/4;
@@ -56,8 +55,8 @@ export default function Sketch01() {
       }
 
       const drawLines = () => {
-        const noiseScale = 0.1;
-        const noiseAmount = 200;
+
+
         p.stroke(60, 255);
         for (let i = 0; i < p.width; i += 10) {
           p.line(i, 0, i, p.height);
@@ -65,7 +64,7 @@ export default function Sketch01() {
       }
 
       const drawDiagLines = (tx: number, ty: number, col: p5.Color) => {
-        let lnHt = p.height/4;
+        const lnHt = p.height/4;
         const noiseScale = 0.01;
         const noiseAmount = 20;
         p.push();
@@ -76,10 +75,10 @@ export default function Sketch01() {
             p.strokeWeight(5);
             
             // Create noise for both start and end points
-            let startNoiseX = p.noise(i * noiseScale, p.frameCount * noiseScale) * noiseAmount;
-            let startNoiseY = p.noise(i * noiseScale, (p.frameCount + 1000) * noiseScale) * noiseAmount;
-            let endNoiseX = p.noise((i + 1000) * noiseScale, p.frameCount * noiseScale) * noiseAmount;
-            let endNoiseY = p.noise((i + 2000) * noiseScale, (p.frameCount + 1000) * noiseScale) * noiseAmount;
+            const startNoiseX = p.noise(i * noiseScale, p.frameCount * noiseScale) * noiseAmount;
+            const startNoiseY = p.noise(i * noiseScale, (p.frameCount + 1000) * noiseScale) * noiseAmount;
+            const endNoiseX = p.noise((i + 1000) * noiseScale, p.frameCount * noiseScale) * noiseAmount;
+            const endNoiseY = p.noise((i + 2000) * noiseScale, (p.frameCount + 1000) * noiseScale) * noiseAmount;
             
             // Draw line with noise-affected coordinates
             p.line(
@@ -93,7 +92,7 @@ export default function Sketch01() {
     }
 
     const drawNegDiagLines = (tx: number, ty: number, col: p5.Color) => {
-      let lnHt = p.height/4;
+      const lnHt = p.height/4;
       const noiseScale = 0.01;
       const noiseAmount = 20;
       p.push();
@@ -103,10 +102,10 @@ export default function Sketch01() {
           p.stroke(col);
           p.strokeWeight(5);
           
-          let startNoiseX = p.noise(i * noiseScale, p.frameCount * noiseScale) * noiseAmount;
-          let startNoiseY = p.noise(i * noiseScale, (p.frameCount + 1000) * noiseScale) * noiseAmount;
-          let endNoiseX = p.noise((i + 1000) * noiseScale, p.frameCount * noiseScale) * noiseAmount;
-          let endNoiseY = p.noise((i + 2000) * noiseScale, (p.frameCount + 1000) * noiseScale) * noiseAmount;
+          const startNoiseX = p.noise(i * noiseScale, p.frameCount * noiseScale) * noiseAmount;
+          const startNoiseY = p.noise(i * noiseScale, (p.frameCount + 1000) * noiseScale) * noiseAmount;
+          const endNoiseX = p.noise((i + 1000) * noiseScale, p.frameCount * noiseScale) * noiseAmount;
+          const endNoiseY = p.noise((i + 2000) * noiseScale, (p.frameCount + 1000) * noiseScale) * noiseAmount;
           
 
           p.line(
@@ -120,8 +119,6 @@ export default function Sketch01() {
   }
 
       const drawCircle = (col: p5.Color, isNoisy: boolean) => {
-        let x = 0;
-        let y = 0
         p.stroke(col);
         p.strokeWeight(1);
         const noiseScale = 0.02;
@@ -130,7 +127,6 @@ export default function Sketch01() {
           const angle = (p.TWO_PI/numOfLines) * i;
           const x = centerX + rad * p.cos(angle);
           const y = centerY + rad * p.sin(angle);
-          // p.point(x, y);
           let noiseX = 0.0;
           let noiseY = 0.0;
           p.noiseSeed(p.random());
