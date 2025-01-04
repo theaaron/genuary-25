@@ -24,7 +24,7 @@ export default function Sketch03() {
           p.translate(0, 0, -400);
           p.rotateX(p.TWO_PI/4);
           p.push();
-          let z = p.map(arr[i][2], 0, 255, -250, 250);
+          const z = p.map(arr[i][2], 0, 255, -250, 250);
           p.translate(0, 0, z);
           p.push();
           p.translate(0, 0, p.sin(p.frameCount/60)*(z/.5));
