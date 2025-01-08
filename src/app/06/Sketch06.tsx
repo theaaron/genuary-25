@@ -21,7 +21,7 @@ export default function Sketch06() {
         p.background(30);
         p.stroke(100, 100, 200)
         drawSky();
-        repeatGrass(p.color(0));
+        repeatGrass();
        
       }
     
@@ -30,12 +30,12 @@ function drawSky() {
   for (let i = -p.width; i < p.width; i += 10) {
     for (let j = -p.height; j < p.height; j += 10) {
       // Use noise to generate a value between 0 and 1
-      let noiseVal = p.noise(i * 0.005, j * 0.005, p.frameCount * 0.01);
+      const noiseVal = p.noise(i * 0.005, j * 0.005, p.frameCount * 0.01);
       
       // Map the noise value to a range for blue (100-200)
-      let blueValue = p.map(noiseVal, 0, 1, 100, 200);
-      let redValue = p.map(noiseVal, 0, 1, 30, 120);
-      let greenValue = p.map(noiseVal, 0, 1, 30, 100);
+      const blueValue = p.map(noiseVal, 0, 1, 100, 200);
+      const redValue = p.map(noiseVal, 0, 1, 30, 120);
+      const greenValue = p.map(noiseVal, 0, 1, 30, 100);
       
       p.fill(redValue, greenValue, blueValue);
       p.stroke(redValue, greenValue, blueValue);
@@ -46,7 +46,7 @@ function drawSky() {
 }
 
 
-function drawGrass(col: p5.Color) {
+function drawGrass() {
   for (let i = -p.width; i < p.width; i += 10) {
 
     const noiseVal = p.noise(i, 0, p.frameCount/300);
@@ -65,12 +65,12 @@ function drawGrass(col: p5.Color) {
   }
 }
 
-function repeatGrass(col: p5.Color) {
+function repeatGrass() {
   p.push();
   p.translate(0, p.height/4);
   for (let i = 0; i < 30; i++) {
     p.translate(0, 10, 0);
-    drawGrass(col);
+    drawGrass();
   }
   p.pop();
 }
