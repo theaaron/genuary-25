@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react'
 import p5 from 'p5'
 
-export default function Sketch07() {
+export default function Sketch08() {
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -12,16 +12,17 @@ export default function Sketch07() {
      
       const arr: number[][] = []
       p.setup = () => {
-        const canvas = p.createCanvas(400, 600)
+        const canvas = p.createCanvas(400, 600, p.WEBGL)
         canvas.parent(containerRef.current!)
-        for (let i = 0; i < 100; i++) {
-          arr.push([p.random(255), p.random(255), p.random(255), p.random(255), p.random(255)])
-        }
+
       }
 
       p.draw = () => {
         p.background(0);
-       
+
+
+        p.fill('green')
+        p.sphere(50, 24, 24)
       }
     
 
