@@ -10,7 +10,6 @@ export default function Sketch11() {
     if (typeof window === 'undefined') return
     const sketch = (p: p5) => {
      
-      const arr: number[][] = []
       p.setup = () => {
         const canvas = p.createCanvas(400, 600, p.WEBGL)
         canvas.parent(containerRef.current!)
